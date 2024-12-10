@@ -11,7 +11,7 @@ lint:
 
 ### Run the project
 run: lint
-	uv run blkpy all
+	uv run blkpy
 
 ### Run unit tests
 test: lint

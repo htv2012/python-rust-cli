@@ -6,7 +6,7 @@ from .util import find_first, run_lsblk
 
 
 @click.command()
-@click.argument("device")
+@click.argument("device", required=False, default="all")
 def main(device):
     data = run_lsblk()["blockdevices"]
     if device != "all":
