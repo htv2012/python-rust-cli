@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 import json
 import subprocess
-import sys
+
+__all__ = ["run_lsblk", "find_all", "find_first"]
 
 
 def run_lsblk() -> dict:
-    cmd = ["lsblk", "-J"]#, "-o", "name,type,mountpoints"]
+    cmd = ["lsblk", "-J"]  # , "-o", "name,type,mountpoints"]
     process = subprocess.run(
         cmd,
         text=True,
@@ -33,23 +34,3 @@ def find_first(root, target: str):
         if node["name"] == target:
             return node
     raise ValueError(f"Not found: {target}")
-
-
-def main():
-    data = run_lsblk()["blockdevices"]
-    if len(sys.argv) > 1:
-        try:
-            device_info = find_first(data, sys.argv[-1])
-        except ValueError as error:
-            raise SystemExit(str(error))
-    else:
-        device_info = data
-        for node in find_all(data):
-            print(f"=== Name: {node['name']} ===")
-            print(json.dumps(node, indent=2))
-        return
-    print(json.dumps(device_info, indent=2))
-
-
-if __name__ == "__main__":
-    main()
