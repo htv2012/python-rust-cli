@@ -8,6 +8,9 @@ from blkpy.util import find_all, find_first
 
 @pytest.fixture
 def block_devices():
+    """
+    Return the `blockdevices` key of the data
+    """
     here = pathlib.Path(__file__).parent
     data_path = here / "lsblk-J.json"
     with open(data_path, "r", encoding="utf-8") as stream:
@@ -16,6 +19,9 @@ def block_devices():
 
 
 def test_find_first_leaf(block_devices):
+    """
+    Find the first device, which is a leaf.
+    """
     assert find_first(block_devices, "sdb") == {
         "name": "sdb",
         "maj:min": "8:16",
@@ -28,6 +34,9 @@ def test_find_first_leaf(block_devices):
 
 
 def test_find_all(block_devices):
+    """
+    Find all the devices.
+    """
     names = [device["name"] for device in find_all(block_devices)]
     assert len(names) == 8
     assert "sdb" in names
