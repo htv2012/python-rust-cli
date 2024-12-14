@@ -9,7 +9,7 @@ def run_lsblk() -> dict:
     """
     Run the lsblk command and return the JSON output.
     """
-    command = ["llsblk", "-J"]
+    command = ["lsblk", "-J"]
     process = subprocess.run(command, text=True, capture_output=True)
     data = json.loads(process.stdout)
     return data
