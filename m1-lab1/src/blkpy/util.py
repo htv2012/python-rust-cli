@@ -37,4 +37,4 @@ def find_first(root, target: str):
     for node in find_all(root):
         if node["name"] == target:
             return node
-    raise ValueError(f"Not found: {target}")
+    raise ValueError(f"Device {target!r} not found")
