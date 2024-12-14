@@ -9,7 +9,7 @@ def run_lsblk() -> dict:
     """
     Run the lsblk command and return the JSON output.
     """
-    command = ["lsblk", "-J"]
+    command = ["llsblk", "-J"]
     process = subprocess.run(command, text=True, capture_output=True)
     data = json.loads(process.stdout)
     return data
@@ -37,4 +37,4 @@ def find_first(root, target: str):
     for node in find_all(root):
         if node["name"] == target:
             return node
-    raise ValueError(f"Not found: {target}")
+    raise ValueError(f"Device {target!r} not found")
