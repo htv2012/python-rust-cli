@@ -1,3 +1,4 @@
+use serde_json::Value;
 use std::process::Command;
 
 fn run_command(command: &str) -> String {
@@ -16,27 +17,31 @@ fn run_command(command: &str) -> String {
     }
 }
 
-pub fn run_lsblk(device: &str) -> serde_json::Value {
-    let command = "lsblk -J -o name,size,type,mountpoint";
-    let output = run_command(command);
-    if output.is_empty() {
-        return serde_json::json!({});
-    }
-
-    let devices: serde_json::Value = serde_json::from_str(&output).unwrap();
-    let devices = devices["blockdevices"].as_array().unwrap();
-    for parent in devices {
-        if parent["name"] == device {
-            return parent.clone();
+fn find_first(devices: &Vec<Value>, target: &str) -> Option<Value> {
+    for device in devices {
+        if device["name"] == target {
+            return Some(device.clone());
         }
-        if let Some(children) = parent["children"].as_array() {
-            for child in children {
-                if child["name"] == "device" {
-                    return child.clone();
-                }
+
+        // Recursive search
+        if let Some(children) = device["children"].as_array() {
+            if let Some(found) = find_first(children, target) {
+                return Some(found);
             }
         }
     }
 
-    serde_json::json!({})
+    None
+}
+
+pub fn run_lsblk(device: &str) -> Option<Value> {
+    let command = "lsblk -J -o name,size,type,mountpoint";
+    let output = run_command(command);
+    if output.is_empty() {
+        return None;
+    }
+
+    let devices: serde_json::Value = serde_json::from_str(&output).unwrap();
+    let devices = devices["blockdevices"].as_array().unwrap();
+    find_first(devices, device)
 }
