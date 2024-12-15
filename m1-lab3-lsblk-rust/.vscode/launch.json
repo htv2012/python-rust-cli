@@ -1,0 +1,83 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in library 'blkrs'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--lib",
+                    "--package=blkrs"
+                ],
+                "filter": {
+                    "name": "blkrs",
+                    "kind": "lib"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'blkrs'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=blkrs",
+                    "--package=blkrs"
+                ],
+                "filter": {
+                    "name": "blkrs",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'blkrs sda1'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=blkrs",
+                    "--package=blkrs"
+                ],
+                "filter": {
+                    "name": "blkrs",
+                    "kind": "bin"
+                }
+            },
+            "args": ["sda1"],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'blkrs'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=blkrs",
+                    "--package=blkrs"
+                ],
+                "filter": {
+                    "name": "blkrs",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
