@@ -17,8 +17,10 @@ fn main() {
 
     if let Some(device) = matches.get_one::<String>("device") {
         match run_lsblk(device) {
-            Some(found) => match serde_json::to_string(&found) {
-                Ok(output) => println!("{}", output),
+            Some(found) => match serde_json::to_string_pretty(&found) {
+                Ok(output) => {
+                    println!("{}", output);
+                }
                 Err(message) => {
                     println!("{}", found);
                     eprintln!("{}", message);

@@ -38,10 +38,10 @@ pub fn run_lsblk(device: &str) -> Option<Value> {
     let command = "lsblk -J -o name,size,type,mountpoint";
     let output = run_command(command);
     if output.is_empty() {
-        return None;
+        None
+    } else {
+        let devices: serde_json::Value = serde_json::from_str(&output).unwrap();
+        let devices = devices["blockdevices"].as_array().unwrap();
+        find_first(devices, device)
     }
-
-    let devices: serde_json::Value = serde_json::from_str(&output).unwrap();
-    let devices = devices["blockdevices"].as_array().unwrap();
-    find_first(devices, device)
 }
