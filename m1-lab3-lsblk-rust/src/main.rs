@@ -1,14 +1,13 @@
 use blkrs::run_lsblk;
-use clap::{Arg, ColorChoice, Command};
 
 fn main() {
-    let matches = Command::new("lsblk")
+    let matches: clap::ArgMatches = clap::Command::new("lsblk")
         .version("0.0.1")
         .author("Hai Vu")
         .about("lsblk in Rust")
-        .color(ColorChoice::Always)
+        .color(clap::ColorChoice::Always)
         .arg(
-            Arg::new("device")
+            clap::Arg::new("device")
                 .help("Device to query")
                 .required(true)
                 .index(1),
@@ -17,7 +16,7 @@ fn main() {
 
     if let Some(device) = matches.get_one::<String>("device") {
         match run_lsblk(device) {
-            Some(found) => match serde_json::to_string_pretty(&found) {
+            Ok(found) => match serde_json::to_string_pretty(&found) {
                 Ok(output) => {
                     println!("{}", output);
                 }
@@ -26,8 +25,9 @@ fn main() {
                     eprintln!("{}", message);
                 }
             },
-            None => {
-                eprintln!("Device not found: '{}'", device);
+            Err(error) => {
+                eprintln!("{}", error);
+                std::process::exit(1);
             }
         }
     }
