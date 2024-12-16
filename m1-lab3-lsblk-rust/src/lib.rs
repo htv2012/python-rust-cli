@@ -17,24 +17,21 @@ fn run_command(command: &str) -> Result<String, Error> {
     }
 }
 
-fn find_first(devices: &Vec<Value>, target: &str) -> Result<Value, Error> {
+fn find_first(devices: &Vec<Value>, target: &str) -> Option<Value> {
     for device in devices {
         if device["name"] == target {
-            return Ok(device.clone());
+            return Some(device.clone());
         }
 
         // Recursive search
         if let Some(children) = device["children"].as_array() {
-            if let Ok(found) = find_first(children, target) {
-                return Ok(found);
+            if let Some(found) = find_first(children, target) {
+                return Some(found);
             }
         }
     }
 
-    Err(Error::new(
-        ErrorKind::NotFound,
-        format!("Device '{}' not found", target),
-    ))
+    None
 }
 
 pub fn run_lsblk(device: &str) -> Result<Value, Error> {
@@ -43,7 +40,13 @@ pub fn run_lsblk(device: &str) -> Result<Value, Error> {
         Ok(output) => {
             let devices: Value = serde_json::from_str(&output).unwrap();
             let devices = devices["blockdevices"].as_array().unwrap();
-            find_first(devices, device)
+            match find_first(devices, device) {
+                Some(found) => Ok(found),
+                None => Err(Error::new(
+                    ErrorKind::NotFound,
+                    format!("Device '{}' not found", device),
+                )),
+            }
         }
         Err(error) => Err(error),
     }
