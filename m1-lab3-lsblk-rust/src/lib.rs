@@ -38,8 +38,8 @@ pub fn run_lsblk(device: &str) -> Result<Value, Error> {
     let command = "lsblk -J -o name,size,type,mountpoint";
     match run_command(command) {
         Ok(output) => {
-            let devices: Value = serde_json::from_str(&output).unwrap();
-            let devices = devices["blockdevices"].as_array().unwrap();
+            let raw: Value = serde_json::from_str(&output).unwrap();
+            let devices = raw["blockdevices"].as_array().unwrap();
             match find_first(devices, device) {
                 Some(found) => Ok(found),
                 None => Err(Error::new(
