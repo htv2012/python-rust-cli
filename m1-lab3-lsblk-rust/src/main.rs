@@ -1,13 +1,14 @@
 use blkrs::run_lsblk;
+use clap::{Arg, ArgMatches, ColorChoice, Command};
 
 fn main() {
-    let matches: clap::ArgMatches = clap::Command::new("lsblk")
-        .version("0.0.1")
+    let matches: ArgMatches = Command::new(env!("CARGO_PKG_NAME"))
+        .version(env!("CARGO_PKG_VERSION"))
         .author("Hai Vu")
         .about("lsblk in Rust")
-        .color(clap::ColorChoice::Always)
+        .color(ColorChoice::Always)
         .arg(
-            clap::Arg::new("device")
+            Arg::new("device")
                 .help("Device to query")
                 .required(true)
                 .index(1),
