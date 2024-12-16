@@ -39,7 +39,7 @@ pub fn run_lsblk(device: &str) -> Result<Value, Error> {
     match run_command(command) {
         Ok(output) => {
             let raw: Value = serde_json::from_str(&output).unwrap();
-            let devices = raw["blockdevices"].as_array().unwrap();
+            let devices: &Vec<Value> = raw["blockdevices"].as_array().unwrap();
             match find_first(devices, device) {
                 Some(found) => Ok(found),
                 None => Err(Error::new(
