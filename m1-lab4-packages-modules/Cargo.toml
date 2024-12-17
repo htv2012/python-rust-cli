@@ -1,0 +1,6 @@
+[package]
+name = "m1-lab4-packages-modules"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
