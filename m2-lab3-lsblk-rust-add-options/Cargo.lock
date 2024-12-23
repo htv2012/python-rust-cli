@@ -52,7 +52,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "blkrs2"
+name = "blkrs"
 version = "0.1.0"
 dependencies = [
  "clap",

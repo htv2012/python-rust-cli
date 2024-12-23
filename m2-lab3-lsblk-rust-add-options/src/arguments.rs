@@ -6,7 +6,7 @@ use clap::{Parser, Subcommand};
 #[command(version, about, long_about = None)]
 #[command(propagate_version = true)]
 pub struct Arguments {
-    #[clap(long, short, help = "Show debug output", default_value_t = false)]
+    #[clap(long, short, env = "BLKRS_DEBUG")]
     pub debug: bool,
 
     #[clap(long, short, help = "Verbosity level, e.g -v, -vv, -vvv", action = ArgAction::Count)]
