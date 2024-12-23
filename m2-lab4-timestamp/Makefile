@@ -4,7 +4,7 @@ DEV = sda
 
 info: lint
 	cargo run --
-	cargo run -- 19
+	cargo run -- 10
 
 lint:
 	cargo check
