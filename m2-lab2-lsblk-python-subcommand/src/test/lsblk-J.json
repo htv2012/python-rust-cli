@@ -1,0 +1,94 @@
+{
+   "blockdevices": [
+      {
+         "name": "sda",
+         "maj:min": "8:0",
+         "rm": false,
+         "size": "931.5G",
+         "ro": false,
+         "type": "disk",
+         "mountpoints": [
+             null
+         ],
+         "children": [
+            {
+               "name": "sda1",
+               "maj:min": "8:1",
+               "rm": false,
+               "size": "286M",
+               "ro": false,
+               "type": "part",
+               "mountpoints": [
+                   "/boot/efi"
+               ]
+            },{
+               "name": "sda2",
+               "maj:min": "8:2",
+               "rm": false,
+               "size": "977M",
+               "ro": false,
+               "type": "part",
+               "mountpoints": [
+                   "/boot"
+               ]
+            },{
+               "name": "sda3",
+               "maj:min": "8:3",
+               "rm": false,
+               "size": "930.3G",
+               "ro": false,
+               "type": "part",
+               "mountpoints": [
+                   null
+               ],
+               "children": [
+                  {
+                     "name": "lvmlmde",
+                     "maj:min": "254:0",
+                     "rm": false,
+                     "size": "930.3G",
+                     "ro": false,
+                     "type": "crypt",
+                     "mountpoints": [
+                         null
+                     ],
+                     "children": [
+                        {
+                           "name": "lvmlmde-root",
+                           "maj:min": "254:1",
+                           "rm": false,
+                           "size": "913.9G",
+                           "ro": false,
+                           "type": "lvm",
+                           "mountpoints": [
+                               "/"
+                           ]
+                        },{
+                           "name": "lvmlmde-swap",
+                           "maj:min": "254:2",
+                           "rm": false,
+                           "size": "15.4G",
+                           "ro": false,
+                           "type": "lvm",
+                           "mountpoints": [
+                               "[SWAP]"
+                           ]
+                        }
+                     ]
+                  }
+               ]
+            }
+         ]
+      },{
+         "name": "sdb",
+         "maj:min": "8:16",
+         "rm": true,
+         "size": "0B",
+         "ro": false,
+         "type": "disk",
+         "mountpoints": [
+             null
+         ]
+      }
+   ]
+}
