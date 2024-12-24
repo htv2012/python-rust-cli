@@ -3,8 +3,8 @@ DEV = sda
 .PHONY: info lint dev edit clean
 
 info: lint
-	cargo run --
-	cargo run -- 10
+	cargo run -q --
+	cargo run -q -- -f "%H:%M:%S" 10
 
 lint:
 	cargo check
