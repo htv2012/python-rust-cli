@@ -1,0 +1,26 @@
+[project]
+name = "blkpy"
+version = "0.1.0"
+description = "Invoke lsblk"
+readme = "README.md"
+authors = [
+    { name = "Hai Vu", email = "haivu2004@gmail.com" }
+]
+requires-python = ">=3.9"
+dependencies = [
+    "click>=8.1.7",
+    "rich>=13.9.4",
+]
+
+[project.scripts]
+blkpy = "blkpy.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=8.3.4",
+    "ruff>=0.8.2",
+]
