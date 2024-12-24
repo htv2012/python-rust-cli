@@ -1,4 +1,5 @@
-// time_toool.rs
+//! Time-related resources
+
 use chrono::{DateTime, Local};
 use std::time::SystemTime;
 
