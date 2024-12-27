@@ -1,0 +1,14 @@
+[package]
+name = "blkrs"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Shell for lsblk command"
+documentation = "https://github.com/htv2012/python-rust-cli/tree/main/m2-lab3-lsblk-rust-add-options"
+homepage = "https://github.com/htv2012/python-rust-cli/tree/main/m2-lab3-lsblk-rust-add-options"
+
+[dependencies]
+clap = { version = "4.5.23", features = ["derive", "env"] }
+env_logger = "0.11.6"
+log = "0.4.22"
+serde_json = "1.0.133"
