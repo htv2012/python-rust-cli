@@ -7,23 +7,24 @@ use pyo3::prelude::*;
 
 fn marco_python(input: &str) -> PyResult<String> {
     pyo3::prepare_freethreaded_python();
+
     Python::with_gil(|py| {
-        let module = PyModule::from_code(
+        let marco = PyModule::from_code(
             py,
-            r#"
+            cr#"
 def marco(value):
     if value == "marco":
         return "head"
     return "tail"
 "#,
-            "marco.py",
-            "marco",
+            cr#"marco.py"#,
+            cr#"marco"#,
 )?;
 
-        let func = module.getattr("marco")?;
-        let result = func.call1((input,))?;
-        let str_result: &PyString = result.extract()?;
-        Ok(str_result.to_string())
+        let marco_func = marco.getattr("marco")?;
+        let marco_result = marco_func.call1((input,))?;
+        let marco_result: &PyString = marco_result.extract()?;
+        Ok(marco_result.to_string())
     })
 }
 
