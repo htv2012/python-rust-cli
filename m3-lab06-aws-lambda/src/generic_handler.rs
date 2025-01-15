@@ -20,7 +20,7 @@ pub(crate) async fn function_handler(
     event: LambdaEvent<IncomingMessage>,
 ) -> Result<OutgoingMessage, Error> {
     let total = Decimal::from_str(&event.payload.total).unwrap();
-    let tip_percent = Decimal::from_str(&event.payload.tip_percent).unwrap();
+    let tip_percent = Decimal::from_str(&event.payload.tip).unwrap();
 
     let tip_amount = (total * tip_percent).round_dp(2);
     let total_plus_tip = (total + tip_amount).round_dp(2);
