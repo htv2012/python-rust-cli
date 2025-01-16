@@ -6,13 +6,13 @@
 	clean \
 	format \
 	install \
+	invoke \
 	lint \
-	run \
-	send \
+	watch \
 	test \
 
 ### One dev cycle
-all: send
+all: invoke
 
 ### Install required crates
 install:
@@ -38,7 +38,7 @@ test: lint format build
 	cargo test
 
 ### Runsthe cli
-run: test
+watch: lint format build test
 	cargo lambda watch
 
 ### Perform benchmark
@@ -50,6 +50,6 @@ bench:
 clean:
 	cargo clean
 
-send:
+invoke:
 	cargo lambda invoke --data-ascii '{"total": "200.0", "tip": "0.18"}'
 
