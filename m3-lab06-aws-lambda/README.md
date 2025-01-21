@@ -1,6 +1,6 @@
 # Introduction
 
-new-lambda-project is a Rust project that implements an AWS Lambda function in Rust.
+hv-tip-calculator is a Rust project that implements an AWS Lambda function in Rust.
 
 ## Prerequisites
 

@@ -14,6 +14,10 @@
 ### One dev cycle
 all: invoke
 
+### Deploy to remote server
+deploy:
+	cargo lambda deploy
+
 ### Install required crates
 install:
 	#add derive feature to clap (cli tool)
@@ -23,11 +27,7 @@ install:
 
 ### Build release version
 build:
-	cargo build --release
-
-### Static analysis
-lint:
-	cargo clippy
+	cargo lambda build --release --arm64
 
 ### Format code
 format:
@@ -43,13 +43,25 @@ watch: lint format build test
 
 ### Perform benchmark
 bench:
-	cargo lambda watch
+	cargo lambda watch:
 	open target/criterion/report/index.html
 
 ### Delete generated files
 clean:
 	cargo clean
 
+### Invoke the function locally
 invoke:
-	cargo lambda invoke --data-ascii '{"total": "200.0", "tip": "0.18"}'
+	bash invoke.sh 200.0 0.18
+
+### Invoke the function remotely
+invoke-remote:
+	cargo lambda invoke \
+		--remote \
+		--data-ascii '{"total": "200.0", "tip": "0.18"}' \
+		hv-tip-calculator
+
+### Static analysis
+lint:
+	cargo clippy
 

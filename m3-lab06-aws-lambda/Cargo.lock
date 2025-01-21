@@ -363,6 +363,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7d71d3574edd2771538b901e6549113b4006ece66150fb69c0fb6d9a2adae946"
 
 [[package]]
+name = "hv-tip-calculator"
+version = "0.1.0"
+dependencies = [
+ "lambda_runtime",
+ "rust_decimal",
+ "rust_decimal_macros",
+ "serde",
+ "tokio",
+]
+
+[[package]]
 name = "hyper"
 version = "1.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -516,17 +527,6 @@ dependencies = [
  "libc",
  "wasi",
  "windows-sys",
-]
-
-[[package]]
-name = "new-lambda-project"
-version = "0.1.0"
-dependencies = [
- "lambda_runtime",
- "rust_decimal",
- "rust_decimal_macros",
- "serde",
- "tokio",
 ]
 
 [[package]]
